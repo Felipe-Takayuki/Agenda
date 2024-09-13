@@ -11,7 +11,7 @@ class TodoPage extends StatefulWidget {
 }
 
 class _TodoPageState extends State<TodoPage> {
-  final List<TodoWidget> todos = [
+  List<TodoWidget> todos = [
             TodoWidget(todo: TodoModel(text: "Atividade 1", imageUrl: "https://avatars.githubusercontent.com/Noobolon") ),
             TodoWidget(todo: TodoModel(text: "Atividade 2", imageUrl: "https://avatars.githubusercontent.com/IsaacZanni"),),
             TodoWidget(todo: TodoModel(text: "Atividade 3"),),
@@ -27,6 +27,9 @@ class _TodoPageState extends State<TodoPage> {
     FloatingActionButton(
       onPressed: (){
         modalCadastrar(context, todos);
+        setState(() {
+         todos;        
+        });
       }, 
       child: const Icon(Icons.add),),
     );

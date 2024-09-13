@@ -14,7 +14,7 @@ class TodoWidget extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-        Image.network(todo.imageUrl == null ? "https://avatars.githubusercontent.com/Felipe-Takayuki" : todo.imageUrl!, width: 100, fit: BoxFit.cover,),
+        Image.network(todo.imageUrl == null ? "https://avatars.githubusercontent.com/Felipe-Takayuki" : todo.imageUrl!, width: 100, height: 100, fit: BoxFit.cover,),
         Text(todo.text, style:  const TextStyle(color: Colors.white, fontSize: 20),),
         ElevatedButton(onPressed: (){}, child: const Icon(Icons.edit))
       ],),
