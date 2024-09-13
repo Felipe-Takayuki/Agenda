@@ -1,9 +1,9 @@
+import 'package:agenda_felipe/src/model/todo_model.dart';
 import 'package:flutter/material.dart';
 
 class TodoWidget extends StatelessWidget {
-  final String text;
-  final String? image;
-  const TodoWidget({super.key, required this.text, this.image});
+  final TodoModel todo;
+  const TodoWidget({super.key, required this.todo});
 
   @override
   Widget build(BuildContext context) {
@@ -14,8 +14,8 @@ class TodoWidget extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-        Image.network(image == null ? "https://avatars.githubusercontent.com/u/105937609?v=4" : image!, width: 100, fit: BoxFit.cover,),
-        Text(text, style:  const TextStyle(color: Colors.white, fontSize: 20),),
+        Image.network(todo.imageUrl == null ? "https://avatars.githubusercontent.com/Felipe-Takayuki" : todo.imageUrl!, width: 100, fit: BoxFit.cover,),
+        Text(todo.text, style:  const TextStyle(color: Colors.white, fontSize: 20),),
         ElevatedButton(onPressed: (){}, child: const Icon(Icons.edit))
       ],),
     );
