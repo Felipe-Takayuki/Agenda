@@ -12,31 +12,38 @@ class TodoModal extends StatefulWidget {
 }
 
 class _TodoModalState extends State<TodoModal> {
-  final TextEditingController textTodo = TextEditingController();
-  final TextEditingController imageURL = TextEditingController();
-
+  final TextEditingController activityTypeController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
+final TextEditingController imageUrlController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Dialog(
       
-        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
+
         child: Container(
           width: 500,
-          height: 500,
           padding: const EdgeInsets.all(20),
-          decoration: BoxDecoration(color: Colors.lightBlue[300], borderRadius: BorderRadius.circular(20)),
+          decoration: BoxDecoration(color: const Color.fromARGB(255, 130, 174, 196), borderRadius: BorderRadius.circular(20)),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              TextField(controller: textTodo, decoration: const InputDecoration(labelText: "titulo"),),
-              TextField(controller: imageURL, decoration: const InputDecoration(labelText: "nome de usuario")),
-                 const Spacer(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text("Cadastrar Atividade", style:  TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
+                  IconButton(onPressed: (){
+                    Navigator.pop(context);
+                  }, icon: const Icon(Icons.close))
+                ],
+              ),
+              TextField(controller: activityTypeController, decoration: const InputDecoration(labelText: "Tipo da atividade"),),
+              TextField(controller: descriptionController, decoration: const InputDecoration(labelText: "URL da imagem"), ),
+              const SizedBox(height: 20,),
               ElevatedButton(onPressed: (){
-
-                widget.todos.add(TodoWidget(todo: TodoModel(text: textTodo.text, imageUrl: imageURL.text),));
-
-                Navigator.pop(context);
-
-              }, child: const Text("Criar Atividade")),
+                  widget.todos.add(TodoWidget(todo: TodoModel(activityType: activityTypeController.text, imageUrl: imageUrlController.text , description:descriptionController.text ),));
+                  Navigator.pop(context);
+                }, child: const Text("Cadastrar Atividade", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),)
+              ),
            
             ],
           ),

@@ -12,9 +12,9 @@ class TodoPage extends StatefulWidget {
 
 class _TodoPageState extends State<TodoPage> {
   List<TodoWidget> todos = [
-            TodoWidget(todo: TodoModel(text: "Atividade 1", imageUrl: "https://avatars.githubusercontent.com/Noobolon") ),
-            TodoWidget(todo: TodoModel(text: "Atividade 2", imageUrl: "https://avatars.githubusercontent.com/IsaacZanni"),),
-            TodoWidget(todo: TodoModel(text: "Atividade 3"),),
+            TodoWidget(todo: TodoModel(activityType: "Atividade 1", imageUrl: "https://avatars.githubusercontent.com/Noobolon", description: "noob") ),
+            TodoWidget(todo: TodoModel(activityType: "Atividade 2", imageUrl: "https://avatars.githubusercontent.com/IsaacZanni", description: "noob"),),
+            TodoWidget(todo: TodoModel(activityType: "Atividade 3", description: "not noob"),),
   ];
   @override
   Widget build(BuildContext context) {
