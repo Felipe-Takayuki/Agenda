@@ -14,7 +14,8 @@ class TodoModal extends StatefulWidget {
 class _TodoModalState extends State<TodoModal> {
   final TextEditingController activityTypeController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
-final TextEditingController imageUrlController = TextEditingController();
+  final TextEditingController dateController = TextEditingController();
+  final TextEditingController imageUrlController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -37,10 +38,12 @@ final TextEditingController imageUrlController = TextEditingController();
                 ],
               ),
               TextField(controller: activityTypeController, decoration: const InputDecoration(labelText: "Tipo da atividade"),),
-              TextField(controller: descriptionController, decoration: const InputDecoration(labelText: "URL da imagem"), ),
+              TextField(controller: descriptionController, decoration: const InputDecoration(labelText: "Descrição"),),
+              TextField(controller: dateController, decoration: const InputDecoration(labelText: "Data"),),
+              TextField(controller: imageUrlController, decoration: const InputDecoration(labelText: "URL da imagem"), ),
               const SizedBox(height: 20,),
               ElevatedButton(onPressed: (){
-                  widget.todos.add(TodoWidget(todo: TodoModel(activityType: activityTypeController.text, imageUrl: imageUrlController.text , description:descriptionController.text ),));
+                  widget.todos.add(TodoWidget(todo: TodoModel(activityType: activityTypeController.text, imageUrl: imageUrlController.text , description:descriptionController.text, date: dateController.text ),));
                   Navigator.pop(context);
                 }, child: const Text("Cadastrar Atividade", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),)
               ),
@@ -52,10 +55,3 @@ final TextEditingController imageUrlController = TextEditingController();
   }
 }
 
-void modalCadastrar(BuildContext context, List<TodoWidget> todos) {
-
-  showDialog(context: context, builder: (context) {
-    return TodoModal(todos: todos);
-  });
-  
-}
