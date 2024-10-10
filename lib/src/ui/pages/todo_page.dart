@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:agenda_felipe/src/model/todo_model.dart';
 import 'package:agenda_felipe/src/ui/widgets/modal.dart';
 import 'package:agenda_felipe/src/ui/widgets/todo_widget.dart';
@@ -11,7 +13,19 @@ class TodoPage extends StatefulWidget {
 }
 
 class _TodoPageState extends State<TodoPage> {
-  List<TodoWidget> todos = [
+  final List<Map<String, String>> _atividades = [TodoModel(activityType: "Casa", description: "limpar casa", date: "", imageUrl: "").toMap()];
+   void modalCadastrar() {
+  
+    setState(() {
+        showDialog(
+        context: context,
+        builder: (context) {
+          return TodoModal(todos: todos);
+        });
+      todos;
+    });
+  }
+   List<TodoWidget> todos = [
     TodoWidget(
         todo: TodoModel(
             activityType: "Atividade 1",
@@ -29,6 +43,7 @@ class _TodoPageState extends State<TodoPage> {
       todo: TodoModel(activityType: "Atividade 3", description: "not noob", date: "08/12/2831"),
     ),
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,25 +59,17 @@ class _TodoPageState extends State<TodoPage> {
       body: ListView(children: todos),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          //modalCadastrar() usa esse R;
-          showAboutDialog(context: context);
+          modalCadastrar();
+          log("true");
+        
+          // showAboutDialog(context: context);
         },
         child: const Icon(Icons.add),
       ),
     );
   }
 
-  void modalCadastrar() {
-  
-    setState(() {
-        showDialog(
-        context: context,
-        builder: (context) {
-          return TodoModal(todos: todos);
-        });
-      todos;
-    });
-  }
+ 
 }
 
 class CadastrarAtividade extends StatefulWidget {
