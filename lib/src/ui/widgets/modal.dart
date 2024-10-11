@@ -1,11 +1,10 @@
 
-import 'package:agenda_felipe/src/model/todo_model.dart';
-import 'package:agenda_felipe/src/ui/widgets/todo_widget.dart';
 import 'package:flutter/material.dart';
 
 class TodoModal extends StatefulWidget {
-  final List<TodoWidget> todos;
-  const TodoModal({super.key, required this.todos});
+  final Function modalsFunction;
+  final int? index;
+  const TodoModal({super.key,this.index, required this.modalsFunction});
 
   @override
   State<TodoModal> createState() => _TodoModalState();
@@ -42,8 +41,8 @@ class _TodoModalState extends State<TodoModal> {
               TextField(controller: dateController, decoration: const InputDecoration(labelText: "Data"),),
               TextField(controller: imageUrlController, decoration: const InputDecoration(labelText: "URL da imagem"), ),
               const SizedBox(height: 20,),
-              ElevatedButton(onPressed: (){
-                  widget.todos.add(TodoWidget(todo: TodoModel(activityType: activityTypeController.text, imageUrl: imageUrlController.text , description:descriptionController.text, date: dateController.text ),));
+              ElevatedButton(onPressed: () {
+                  widget.modalsFunction(widget.index, activityTypeController.text, descriptionController.text, dateController.text, imageUrlController.text);
                   Navigator.pop(context);
                 }, child: const Text("Cadastrar Atividade", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),)
               ),

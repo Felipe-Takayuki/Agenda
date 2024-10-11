@@ -1,10 +1,16 @@
 import 'package:agenda_felipe/src/model/todo_model.dart';
 import 'package:flutter/material.dart';
 
-class TodoWidget extends StatelessWidget {
+class TodoWidget extends StatefulWidget {
   final TodoModel todo;
-  const TodoWidget({super.key, required this.todo});
+  final VoidCallback onEdit;
+  const TodoWidget({super.key, required this.todo, required this.onEdit});
 
+  @override
+  State<TodoWidget> createState() => _TodoWidgetState();
+}
+
+class _TodoWidgetState extends State<TodoWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -14,9 +20,9 @@ class TodoWidget extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-        Image.network(todo.imageUrl == null ? "https://avatars.githubusercontent.com/Felipe-Takayuki" : todo.imageUrl!, width: 100, height: 100, fit: BoxFit.cover,),
-        Text(todo.activityType, style:  const TextStyle(color: Colors.white, fontSize: 20),),
-        ElevatedButton(onPressed: (){}, child: const Icon(Icons.edit))
+        Image.network(widget.todo.imageUrl!, width: 100, height: 100, fit: BoxFit.cover,),
+        Text(widget.todo.activityType, style:  const TextStyle(color: Colors.white, fontSize: 20),),
+        ElevatedButton(onPressed: widget.onEdit, child: const Icon(Icons.edit))
       ],),
     );
   }

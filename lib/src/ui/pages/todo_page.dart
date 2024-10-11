@@ -13,36 +13,41 @@ class TodoPage extends StatefulWidget {
 }
 
 class _TodoPageState extends State<TodoPage> {
-  final List<Map<String, String>> _atividades = [TodoModel(activityType: "Casa", description: "limpar casa", date: "", imageUrl: "").toMap()];
+  final List<TodoModel> _todos = [TodoModel(activityType: "Casa", description: "limpar casa", date: "18/06/2024", imageUrl: "https://avatars.githubusercontent.com/Felipe-Takayuki")];
+   void _addActivity(String type, String description, String date, String imageUrl) {
+    setState(() {
+      _todos.add(TodoModel(activityType: type, description: description, date: date, imageUrl: imageUrl));
+    });
+   } 
+
+   void _editActivity(int index, String type, String description, String date, String imageUrl) {
+    setState(() {
+     _todos[index] = TodoModel( activityType: type, description: description, date: date, imageUrl: imageUrl);
+    });
+   } 
+
    void modalCadastrar() {
-  
     setState(() {
         showDialog(
         context: context,
         builder: (context) {
-          return TodoModal(todos: todos);
+          return TodoModal(modalsFunction: _addActivity,);
         });
-      todos;
+      _todos;
     });
   }
-   List<TodoWidget> todos = [
-    TodoWidget(
-        todo: TodoModel(
-            activityType: "Atividade 1",
-            date: "06/07/2024",
-            imageUrl: "https://avatars.githubusercontent.com/Noobolon",
-            description: "noob")),
-    TodoWidget(
-      todo: TodoModel(
-          activityType: "Atividade 2",
-          date: "20/12/1959",
-          imageUrl: "https://avatars.githubusercontent.com/IsaacZanni",
-          description: "noob"),
-    ),
-    TodoWidget(
-      todo: TodoModel(activityType: "Atividade 3", description: "not noob", date: "08/12/2831"),
-    ),
-  ];
+
+    void modalEditar() {
+          setState(() {
+        showDialog(
+        context: context,
+        builder: (context) {
+          return TodoModal(modalsFunction: _editActivity,);
+        });
+      _todos;
+    });
+    }
+
 
   @override
   Widget build(BuildContext context) {
@@ -56,11 +61,15 @@ class _TodoPageState extends State<TodoPage> {
         ),
         backgroundColor: Colors.blueGrey,
       ),
-      body: ListView(children: todos),
+      body: ListView.builder(
+        itemCount: _todos.length,
+        itemBuilder: (context, index) {
+          //falta adicionar index 
+          return TodoWidget(todo: _todos[index], onEdit:modalEditar, );
+        }),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           modalCadastrar();
-          log("true");
         
           // showAboutDialog(context: context);
         },
@@ -72,16 +81,3 @@ class _TodoPageState extends State<TodoPage> {
  
 }
 
-class CadastrarAtividade extends StatefulWidget {
-  const CadastrarAtividade({super.key});
-
-  @override
-  State<CadastrarAtividade> createState() => _CadastrarAtividadeState();
-}
-
-class _CadastrarAtividadeState extends State<CadastrarAtividade> {
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
-}
