@@ -22,7 +22,14 @@ class _TodoWidgetState extends State<TodoWidget> {
         children: [
         Image.network(widget.todo.imageUrl!, width: 100, height: 100, fit: BoxFit.cover,),
         Text(widget.todo.activityType, style:  const TextStyle(color: Colors.white, fontSize: 20),),
-        ElevatedButton(onPressed: widget.onEdit, child: const Icon(Icons.edit))
+        Column(
+          children: [
+            ElevatedButton(onPressed: widget.onEdit, child: const Icon(Icons.edit)),
+            const SizedBox(height: 10,),
+            ElevatedButton(onPressed: widget.onEdit, child: const Icon(Icons.delete)),
+          ],
+        )
+
       ],),
     );
   }

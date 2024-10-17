@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:agenda_felipe/src/model/todo_model.dart';
 import 'package:agenda_felipe/src/ui/widgets/modal.dart';
 import 'package:agenda_felipe/src/ui/widgets/todo_widget.dart';
@@ -20,9 +18,9 @@ class _TodoPageState extends State<TodoPage> {
     });
    } 
 
-   void _editActivity(int index, String type, String description, String date, String imageUrl) {
+   void _editActivity(TodoModel todo) {
     setState(() {
-     _todos[index] = TodoModel( activityType: type, description: description, date: date, imageUrl: imageUrl);
+     todo = TodoModel( activityType: todo.activityType, description: todo.description, date: todo.date, imageUrl: todo.imageUrl);
     });
    } 
 
@@ -37,12 +35,12 @@ class _TodoPageState extends State<TodoPage> {
     });
   }
 
-    void modalEditar() {
+    void modalEditar(int index) {
           setState(() {
         showDialog(
         context: context,
         builder: (context) {
-          return TodoModal(modalsFunction: _editActivity,);
+          return EditTodoModal(modalsFunction: () => _editActivity(_todos[index]), todoModel: _todos[index],);
         });
       _todos;
     });
@@ -65,7 +63,7 @@ class _TodoPageState extends State<TodoPage> {
         itemCount: _todos.length,
         itemBuilder: (context, index) {
           //falta adicionar index 
-          return TodoWidget(todo: _todos[index], onEdit:modalEditar, );
+          return TodoWidget(todo: _todos[index], onEdit: () =>  modalEditar(index), );
         }),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
